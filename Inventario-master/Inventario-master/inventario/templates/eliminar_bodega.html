@@ -1,0 +1,12 @@
+{% extends 'profile.html' %}
+
+{% block content %}
+  <div class="form-container">
+    <h2 class="perfil-usuario-heading">Eliminar Bodega</h2>
+    <p>¿Estás seguro de que deseas eliminar la bodega "{{ bodega.nombre }}"?</p>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <button type="submit">Eliminar</button>
+    </form>
+  </div>
+{% endblock %}

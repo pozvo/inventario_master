@@ -1,0 +1,10 @@
+{% extends 'profile.html' %}
+
+{% block content %}
+    <h1>Actualizar Producto</h1>
+    <form method="post" action="{% url 'actualizar_producto' pk=producto.pk %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar Cambios</button>
+    </form>
+{% endblock %}

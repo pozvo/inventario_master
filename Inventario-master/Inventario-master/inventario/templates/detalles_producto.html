@@ -1,0 +1,12 @@
+{% extends 'profile.html' %}
+
+{% block content %}
+    <h1>Detalles del Producto</h1>
+    <p><strong>Nombre:</strong> {{ producto.nombre }}</p>
+    <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+    
+    <a href="{% url 'lista_productos' %}">Volver a la lista de productos</a>
+    <a href="{% url 'actualizar_producto' pk=producto.pk %}">Modificar Producto</a>
+{% endblock %}
+
+

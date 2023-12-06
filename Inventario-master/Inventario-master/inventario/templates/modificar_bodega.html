@@ -1,0 +1,12 @@
+{% extends 'profile.html' %}
+
+{% block content %}
+  <div class="form-container">
+    <h2 class="perfil-usuario-heading">Modificar Bodega</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Guardar cambios</button>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'profile.html' %}
+
+{% block content %}
+    <h1>Crear Producto</h1>
+    <form method="post" action="{% url 'crear_producto' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar Producto</button>
+    </form>
+    <a href="{% url 'lista_productos' %}">Volver a la lista de productos</a>
+{% endblock %}

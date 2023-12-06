@@ -1,0 +1,40 @@
+{% extends "profile.html" %}
+{% block content %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Bodega</title>
+  <style>
+      .lista-movimientos-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+      }
+
+      .form-container-d {
+        background-color: #fcf3e3;
+        border-radius: 50px;
+        padding: 65px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        width: 500px; /* Ancho ajustado para el formulario */
+      }
+      
+      .lista-movimientos-heading{
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+  </style>
+</head>
+  <div class="lista-movimientos-container">
+    <div class="form-container-d">
+      <h2 class="lista-movimientos-heading">Lista de Movimientos</h2>
+      <ul>
+        {% for movimiento in movimientos %}
+          <li>{{ movimiento.fecha }} - {{ movimiento.usuario }} - Origen: {{ movimiento.bodega_origen }} - Destino: {{ movimiento.bodega_destino }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}

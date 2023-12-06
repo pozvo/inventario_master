@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="icon" href="2897785.ico" type="image/x-icon">
+  <title>Iniciar sesión</title>
+  {% load static %}
+  <link rel="icon" type="image/png" href="{% static 'images/2897785.ico' %}">
+  <style>
+    body {
+      background-image: url('https://w.wallhaven.cc/full/ym/wallhaven-ymg5kg.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      justify-content: center; /* Centrar verticalmente */
+      align-items: center; /* Centrar horizontalmente */
+    }
+
+    .login-form {
+      background-color: #5C4033;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .login-heading {
+      color: #F3E7D0;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .login-form input[type="text"],
+    .login-form input[type="password"] {
+      width: 100%;
+      height: 40px;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #785F48;
+      border-radius: 4px;
+      font-size: 16px;
+      background-color: #F9F4EE;
+      color: #5C4033;
+    }
+
+    .login-button {
+      background-color: #785F48;
+      color: #F3E7D0;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: 18px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .login-button:hover {
+      background-color: #9B7760;
+    }
+
+    .login-button:active {
+      background-color: #5C4033;
+    }
+
+    .register-link {
+      color: #F3E7D0;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .footer {
+      background-color: #5C4033;
+      color: #F3E7D0;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .footer p {
+      margin: 5px 20px;
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 20px; /* Añadir un margen */
+    }
+
+    .contact-info p {
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-form">
+    <!-- Contenido del formulario de inicio de sesión -->
+    <h2 class="login-heading">Inicio de Sesión</h2>
+    <form method="post" class="login-form">
+      {% csrf_token %}
+      <!-- Campos de usuario y contraseña -->
+      <div class="form-field">
+        <label for="{{ form.username.id_for_label }}">Usuario:</label>
+        {{ form.username }}
+      </div>
+      <div class="form-field">
+        <label for="{{ form.password.id_for_label }}">Contraseña:</label>
+        {{ form.password }}
+      </div>
+      <!-- Botón de inicio de sesión y enlace de registro -->
+      <button type="submit" class="login-button">Iniciar sesión</button>
+      <p>No tiene cuenta? Regístrese haciendo click <a href="register" class="register-link"> Aquí.</a></p>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="contact-info">
+      <p>Correo: inventario@soporte.cl</p>
+      <p>Teléfono: +56937062288</p>
+    </div>
+  </footer>
+</body>
+</html>

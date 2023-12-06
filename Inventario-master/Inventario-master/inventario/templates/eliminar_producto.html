@@ -1,0 +1,11 @@
+{% extends 'profile.html' %}
+
+{% block content %}
+    <h1>Eliminar Producto</h1>
+    <p>¿Estás seguro que deseas eliminar el producto "{{ producto.nombre }}"?</p>
+    <form method="post" action="{% url 'eliminar_producto' pk=producto.pk %}">
+        {% csrf_token %}
+        <button type="submit">Sí, Eliminar</button>
+        <a href="{% url 'lista_productos' %}">Cancelar</a>
+    </form>
+{% endblock %}
