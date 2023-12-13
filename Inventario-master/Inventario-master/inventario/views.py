@@ -26,49 +26,41 @@ def get_session(request):
     nombre_usuario = request.session.get('nombre_usuario', 'Invitado')
     return HttpResponse(f"Valor de la sesión: {nombre_usuario}")
 
-@login_required 
-def lista_productos(request):
-    productos = Producto.objects.all()
-    return render(request, 'lista_productos.html', {'productos': productos})
-
-@login_required
-def detalles_producto(request, pk):
-    producto = get_object_or_404(Producto, pk=pk)
-    return render(request, 'detalles_producto.html', {'producto': producto})
-
 @login_required
 def crear_producto(request):
+    # Obtener las bodegas existentes
+    bodegas = Bodega.objects.all()
+
     if request.method == 'POST':
         form = ProductoForm(request.POST)
         if form.is_valid():
-            form.save()
+            producto = form.save(commit=False)
+
+            # Asignar la bodega seleccionada al producto
+            bodega = form.cleaned_data['bodega']
+            producto.save()  # Guardamos el producto sin asignar la relación muchos a muchos
+
+            # Agregamos la bodega al producto y guardamos nuevamente
+            producto.bodegas.add(bodega)
+            producto.save()
+
+            # Obtenemos la cantidad ingresada en el formulario y la asignamos a cantidad_producto
+            cantidad = form.cleaned_data['cantidad']
+            producto.cantidad_producto = cantidad
+
+            # Guardamos el producto con la cantidad_producto actualizada
+            producto.save()
+
+            # Crear el detalle de movimiento para agregar la cantidad de productos a la bodega
+            DetalleMovimiento.objects.create(movimiento=None, producto=producto, cantidad=cantidad)
+
             return redirect('lista_productos')
     else:
         form = ProductoForm()
-    return render(request, 'crear_producto.html', {'form': form})
 
-@login_required
-def actualizar_producto(request, pk):
-    producto = get_object_or_404(Producto, pk=pk)
+    perfil_usuario = get_object_or_404(PerfilUsuario, pk=request.user.id)
 
-    if request.method == 'POST':
-        form = ProductoForm(request.POST, instance=producto)
-        if form.is_valid():
-            form.save()
-            return redirect('lista_productos')
-    else:
-        form = ProductoForm(instance=producto)
-
-    return render(request, 'actualizar_producto.html', {'form': form , 'producto': producto})
-
-@login_required
-def eliminar_producto(request, pk):
-    producto = get_object_or_404(Producto, pk=pk)
-    if request.method == 'POST':
-        producto.delete()
-        return redirect('lista_productos')
-    return render(request, 'eliminar_producto.html', {'producto': producto})
-
+    return render(request, 'crear_producto.html', {'form': form, 'bodegas': bodegas, 'perfil_usuario': perfil_usuario})
 
 @login_required
 def lista_bodegas(request):
@@ -158,6 +150,11 @@ def lista_movimientos(request):
     perfil_usuario = get_object_or_404(PerfilUsuario, pk=request.user.id)
     return render(request, 'lista_movimientos.html', {'movimientos': movimientos, 'perfil_usuario': perfil_usuario})
 
+@login_required
+def lista_productos(request):
+    productos = Producto.objects.all()
+    perfil_usuario = get_object_or_404(PerfilUsuario, pk=request.user.id)
+    return render(request, 'lista_productos.html', {'productos': productos, 'perfil_usuario': perfil_usuario})
 
 @login_required
 def perfil_usuario(request):

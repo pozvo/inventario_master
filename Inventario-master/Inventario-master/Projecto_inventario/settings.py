@@ -15,21 +15,28 @@ SECRET_KEY = 'django-insecure-vnt^3_+ih5l2@^jek-f@@g(j46gc+-#&h%tg4!-k!za=49qvd7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['3.128.34.239']
+ALLOWED_HOSTS = ['18.223.156.247']
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
 
 LOGIN_REDIRECT_URL = '/profile/'
 
 # Application definition
 
 INSTALLED_APPS = [
+    'albumes.apps.AlbumesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'inventario',
+    'django.contrib.staticfiles', 
+    'rest_framework',
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -81,6 +88,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
 
 
 # Password validation

@@ -16,13 +16,15 @@ class DetalleMovimientoForm(forms.ModelForm):
         model = DetalleMovimiento
         fields = '__all__'
 
-class ProductoForm(forms.ModelForm): 
+class ProductoForm(forms.ModelForm):
+    bodega = forms.ModelChoiceField(queryset=Bodega.objects.all())
+    cantidad = forms.IntegerField(initial=0, validators=[MaxValueValidator(10000)]) 
     nombre = forms.CharField(max_length=40)
     descripcion = forms.CharField(max_length=400)
 
     class Meta:
         model = Producto
-        fields = ('nombre', 'descripcion') 
+        fields = ('nombre', 'descripcion', 'bodega', 'cantidad')  # Incluye el campo de cantidad en los campos del formulario
 
 
 class BodegaForm(forms.ModelForm):

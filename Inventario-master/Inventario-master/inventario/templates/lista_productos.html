@@ -1,70 +1,46 @@
-{% extends 'profile.html' %}
-
+{% extends "profile.html" %}
 {% block content %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Bodega</title>
   <style>
-    .lista-productos-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+      .lista-productos-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+      }
 
-    .lista-productos-table {
-      width: 80%;
-      border-collapse: collapse;
-      margin-top: 30px;
-    }
-
-    .lista-productos-table, th, td {
-      border: 1px solid #ccc;
-      background-color: #ffffff; /* Fondo blanco */
-    }
-
-    th, td {
-      padding: 15px;
-      text-align: center;
-    }
-
-    th {
-      background-color: #5C4033; /* Azul */
-      color: #ffffff;
-    }
-
-    .acciones-link {
-      color: #5C4033; /* Azul */
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .acciones-link:hover {
-      color: #90ff17;
-    }
+      .form-container-c {
+        background-color: #fcf3e3;
+        border-radius: 50px;
+        padding: 65px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        width: 500px; /* Ancho ajustado para el formulario */
+      }
+      
+      .lista-productos-heading{
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
   </style>
-
+</head>
   <div class="lista-productos-container">
-    <h1>Lista de Productos</h1>
-    <table class="lista-productos-table">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Descripción</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
+    <div class="form-container-c">
+      <h2 class="lista-productos-heading">Lista de Productos</h2>
+      <ul>
         {% for producto in productos %}
-          <tr>
-            <td>{{ producto.nombre }}</td>
-            <td>{{ producto.descripcion }}</td>
-            <td>
-                
-              <a href="{% url 'detalles_producto' pk=producto.pk %}" class="acciones-link">Detalles</a>
-              <a href="{% url 'actualizar_producto' pk=producto.pk %}" class="acciones-link">Actualizar</a>
-              <a href="{% url 'eliminar_producto' pk=producto.pk %}" class="acciones-link">Eliminar</a>
-            </td>
-          </tr>
+          <li>
+            {{ producto.nombre|lower }} - {{ producto.descripcion }} - Bodegas: 
+            {% for bodega in producto.bodegas.all %}
+              {{ bodega.nombre }},
+            {% endfor %}
+            - Cantidad: {{ producto.cantidad_producto }}
+          </li>
         {% endfor %}
-      </tbody>
-    </table>
+      </ul>
+    </div>
   </div>
 {% endblock %}
