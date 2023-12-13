@@ -1,1 +1,5 @@
-mysqlclient
+django
+djangorestframework
+djangorestframework-simplejwt
+markdown
+django-filter
