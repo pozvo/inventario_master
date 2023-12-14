@@ -93,48 +93,6 @@ def anadir_producto_bodega(request):
 
     return render(request, 'anadir_producto_bodega.html', {'form': form})
 
-@login_required
-def realizar_movimiento(request):
-    if request.method == 'POST':
-        form = MovimientoForm(request.POST)
-        if form.is_valid():
-            movimiento = form.save(commit=False)
-            movimiento.usuario = request.user
-
-            # Validar que la bodega de origen tiene suficiente stock.
-            producto_bodega_origen = ProductoBodega.objects.get(
-                bodega=movimiento.bodega_origen, 
-                producto=movimiento.producto
-            )
-
-            if producto_bodega_origen.stock >= movimiento.cantidad:
-                # Realiza la transferencia
-                producto_bodega_origen.stock -= movimiento.cantidad
-                producto_bodega_origen.save()
-
-                producto_bodega_destino, created = ProductoBodega.objects.get_or_create(
-                    bodega=movimiento.bodega_destino, 
-                    producto=movimiento.producto
-                )
-                producto_bodega_destino.stock += movimiento.cantidad
-                producto_bodega_destino.save()
-
-                movimiento.save()
-                return redirect('historial_movimientos')
-            else:
-                # No hay suficiente stock. Envía un mensaje de error.
-                form.add_error('cantidad', 'No hay suficiente stock en la bodega de origen.')
-
-    else:
-        form = MovimientoForm()
-
-    return render(request, 'realizar_movimiento.html', {'form': form})
-
-
-@login_required
-def historial_movimientos(request):
-    movimientos = Movimiento.objects.all().order_by('-fecha')
-    return render(request, 'historial_movimientos.html', {'movimientos': movimientos})
 
 @login_required
 def lista_bodegas(request):

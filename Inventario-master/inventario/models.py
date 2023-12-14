@@ -68,7 +68,6 @@ class Movimiento(models.Model):
     bodega_origen = models.ForeignKey(Bodega, on_delete=models.CASCADE, related_name='movimientos_salida')
     bodega_destino = models.ForeignKey(Bodega, on_delete=models.CASCADE, related_name='movimientos_entrada')
     productos = models.ManyToManyField(Producto, through='DetalleMovimiento')
-    cantidad = models.IntegerField(default=0)
     usuario = models.ForeignKey(PerfilUsuario, on_delete=models.CASCADE)
     fecha = models.DateTimeField(auto_now_add=True)
 

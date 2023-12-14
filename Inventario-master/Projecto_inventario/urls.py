@@ -17,8 +17,6 @@ from inventario.views import (
     perfil_usuario,
     set_session,
     get_session,
-    realizar_movimiento,
-    historial_movimientos,
 )
 
 urlpatterns = [
@@ -29,8 +27,6 @@ urlpatterns = [
     path('productos/<int:pk>/actualizar/', actualizar_producto, name='actualizar_producto'),
     path('productos/<int:pk>/eliminar/', eliminar_producto, name='eliminar_producto'),
     path('productos/anadir_bodega/', anadir_producto_bodega, name='anadir_producto_bodega'),  # Nueva ruta
-    path('movimientos/realizar/', realizar_movimiento, name='realizar_movimiento'),
-    path('movimientos/historial/', historial_movimientos, name='historial_movimientos'),
     path('lista_bodegas/', lista_bodegas, name='lista_bodegas'),
     path('detalle_bodega/<int:bodega_id>/', detalle_bodega, name='detalle_bodega'),
     path('crear_actualizar_bodega/', crear_actualizar_bodega, name='crear_actualizar_bodega'),

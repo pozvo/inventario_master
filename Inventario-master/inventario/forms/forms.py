@@ -56,4 +56,4 @@ class BodegaForm(forms.ModelForm):
 class MovimientoForm(forms.ModelForm):
     class Meta:
         model = Movimiento
-        fields = ['bodega_origen', 'bodega_destino', 'productos', 'cantidad']
+        fields = ['bodega_origen', 'bodega_destino']

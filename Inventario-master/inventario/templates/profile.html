@@ -183,13 +183,19 @@
             <a href="{% url 'crear_producto' %}">Crear Producto</a>
         </div>
     </div>
-    <div class="dropdown">
-        <button class="dropbtn">Movimientos</button>
-        <div class="dropdown-content">
-            <a href="{% url 'realizar_movimiento' %}">Realizar Movimiento</a>
-            <a href="{% url 'historial_movimientos' %}">Historial de Movimientos</a>
+    
+    <nav>
+        <div class="navegation">
+            <ul>
+                <li>
+                    <a href="/lista_productos">Lista Productos</a>
+                </li>
+                <li>
+                    <a href="/crear_movimiento">Crear Movimiento</a>
+                </li>
+            </ul>
         </div>
-    </div>
+    </nav>
 </body>
 
 <footer class="footer">
