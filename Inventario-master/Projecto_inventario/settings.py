@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-vnt^3_+ih5l2@^jek-f@@g(j46gc+-#&h%tg4!-k!za=49qvd7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['18.220.61.231','http://18.220.61.231:8000/']
+ALLOWED_HOSTS = ['18.220.61.231','http://18.220.61.231:8000/','172.31.36.245']
 
 
 LOGIN_REDIRECT_URL = '/profile/'
@@ -38,8 +38,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-SESSION_COOKIE_AGE = 3600 #1  hora
-
+SESSION_COOKIE_AGE = 300 #1minuto
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
