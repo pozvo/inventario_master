@@ -1,0 +1,18 @@
+{% extends "profile.html" %}
+{% block content %}
+<h1>Buscar Movimientos</h1>
+<form method="get">
+    {{ form.as_p }}
+    <button type="submit">Buscar</button>
+</form>
+<h2>Resultados de la Búsqueda</h2>
+<ul>
+    {% for movimiento in movimientos %}
+    <li>
+        <a href="{% url 'detalles_movimiento' movimiento.id %}">
+            Movimiento {{ movimiento.id }} - Fecha: {{ movimiento.fecha }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

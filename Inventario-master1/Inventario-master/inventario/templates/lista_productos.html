@@ -1,0 +1,81 @@
+{% extends 'profile.html' %}
+
+{% block content %}
+  <style>
+    .lista-productos-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+    }
+
+    .titulo-tabla {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333; /* Cambio de color del título */
+      text-transform: uppercase; /* Texto en mayúsculas */
+      border-bottom: 2px solid #5C4033; /* Línea decorativa debajo del título */
+      padding-bottom: 10px;
+    }
+
+    .lista-productos-table {
+      width: 80%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .lista-productos-table th,
+    .lista-productos-table td {
+      border: 1px solid #ccc;
+      background-color: #f9f9f9; /* Fondo ligeramente más claro */
+      padding: 15px;
+      text-align: center;
+    }
+
+    .lista-productos-table th {
+      background-color: #5C4033;
+      color: #ffffff;
+      margin-bottom: 15px;
+    }
+
+    .acciones-link {
+      color: #5C4033;
+      text-decoration: none;
+      font-weight: bold;
+      margin-right: 10px; /* Espacio entre los enlaces de acciones */
+    }
+
+    .acciones-link:hover {
+      color: #90ff17;
+    }
+  </style>
+
+  <div class="lista-productos-container">
+    <h1 class="titulo-tabla">Lista de Productos</h1>
+    <table class="lista-productos-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Cantidad Total</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for producto in productos %}
+          <tr>
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.descripcion }}</td>
+            <td>{{ producto.cantidad_total }}</td>
+            <td>
+              <a href="{% url 'detalles_producto' pk=producto.pk %}" class="acciones-link">Detalles</a>
+              <a href="{% url 'actualizar_producto' pk=producto.pk %}" class="acciones-link">Actualizar</a>
+              <a href="{% url 'eliminar_producto' pk=producto.pk %}" class="acciones-link">Eliminar</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "profile.html" %}
+{% block content %}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Bodegas</title>
+    <style>
+      .lista-bodegas-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .lista-bodegas-table {
+        width: 80%;
+        border-collapse: collapse;
+        margin-top: 30px;
+      }
+
+      .lista-bodegas-table, th, td {
+        border: 1px solid #ccc;
+        background-color: #ffffff; /* Fondo blanco */
+      }
+
+      th, td {
+        padding: 15px;
+        text-align: center;
+      }
+
+      th {
+        background-color: #5C4033; /* Azul */
+        color: #ffffff;
+      }
+
+      .detalle-bodega-link {
+        color: #5C4033; /* Azul */
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .detalle-bodega-link:hover {
+        color: #90ff17;
+      }
+    </style>
+  </head>
+  <div class="lista-bodegas-container">
+    <table class="lista-bodegas-table">
+      <!-- ... encabezados de la tabla ... -->
+      <tbody>
+        {% for bodega in bodegas %}
+          <tr>
+            <td>{{ bodega.id }}</td>
+            <td>{{ bodega.nombre }}</td>
+            <td>{{ bodega.direccion }}</td>
+            <td>
+              {% if bodega.jefe_bodega %}
+                {{ bodega.jefe_bodega.username }}
+              {% else %}
+                No asignado
+              {% endif %}
+            </td>
+            <td>
+              <a href="{% url 'detalle_bodega' bodega.id %}" class="detalle-bodega-link">Detalles</a>
+              <!-- ... otros enlaces ... -->
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

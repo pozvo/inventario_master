@@ -1,0 +1,71 @@
+{% extends "profile.html" %}
+{% block content %}
+  <style>
+    .detalle-bodega-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .detalle-bodega-heading,
+    .productos-heading {
+      font-size: 24px;
+      margin-bottom: 10px;
+      background-color: #f2f2f2; /* Fondo gris para resaltar */
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+
+    .detalle-bodega-info {
+      width: 50%;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+      margin-bottom: 20px;
+    }
+
+    .productos-list {
+      list-style: none;
+      padding: 10px;
+      margin: 0;
+      width: 50%;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .producto-item {
+      color: #333;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      padding: 10px;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+      background-color: #f9f9f9;
+    }
+  </style>
+
+  <div class="detalle-bodega-container">
+    <h2 class="detalle-bodega-heading">Detalle de Bodega</h2>
+    <div class="detalle-bodega-info">
+      <p><strong>ID:</strong> {{ bodega.id }}</p>
+      <p><strong>Nombre:</strong> {{ bodega.nombre }}</p>
+      <p><strong>Direcccion:</strong> {{ bodega.direccion }}</p>
+      <p><strong>Jefe de Bodega:</strong> {{ bodega.jefe_bodega.username }}</p>
+      <a href="{% url 'modificar_bodega' bodega.id %}">Modificar Bodega</a>
+      <a href="{% url 'eliminar_bodega' bodega.id %}">Eliminar Bodega</a>
+    </div>
+    <h3 class="productos-heading">Productos en la Bodega</h3>
+    <ul class="productos-list">
+      {% for pb in productos_en_bodega %}
+        <li class="producto-item">
+
+          {{ pb.producto.nombre }} - Cantidad: {{ pb.stock }}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "profile.html" %}
+{% block content %}
+<h1>Historial de Movimientos</h1>
+<ul>
+    {% for movimiento in movimientos %}
+    <li>
+        {{ movimiento.fecha }}: De {{ movimiento.bodega_origen }} a {{ movimiento.bodega_destino }},
+        {{ movimiento.producto }} - Cantidad: {{ movimiento.cantidad }}
+    </li>
+    {% empty %}
+    <li>No hay movimientos realizados.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
